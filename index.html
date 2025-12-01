@@ -543,6 +543,154 @@
 
 
 
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <h2 class="title is-3">
+          More Qualitative Results on MICo-Bench
+        </h2>
+        <p class="subtitle is-5 has-text-grey">
+          Click the button below to view the corresponding generation results before and after SFT (or compared with Qwen-2509).
+        </p>
+      </div>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-full">
+        
+        <div class="box" style="background-color: #fcfcfc; border: 1px solid #eee; padding: 10px; min-height: 400px; display: flex; align-items: center; justify-content: center;">
+          <img id="main-gallery-image" 
+               src="static/more-results/1.png" 
+               alt="Result Display" 
+               style="width: 100%; height: auto; border-radius: 5px; transition: opacity 0.3s ease;">
+        </div>
+
+        <div class="fingerprint-container has-text-centered" style="margin-top: 20px;">
+          <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+            
+            <div class="fingerprint-item is-active" onclick="switchGallery(1, this)">
+              <img src="static/GT/1.png" alt="ID 1">
+            </div>
+
+            <div class="fingerprint-item" onclick="switchGallery(2, this)">
+              <img src="static/GT/2.png" alt="ID 2">
+            </div>
+
+            <div class="fingerprint-item" onclick="switchGallery(3, this)">
+              <img src="static/GT/3.png" alt="ID 3">
+            </div>
+
+            <div class="fingerprint-item" onclick="switchGallery(4, this)">
+              <img src="static/GT/4.png" alt="ID 4">
+            </div>
+
+            <div class="fingerprint-item" onclick="switchGallery(5, this)">
+              <img src="static/GT/5.png" alt="ID 5">
+            </div>
+
+            <div class="fingerprint-item" onclick="switchGallery(6, this)">
+              <img src="static/GT/6.png" alt="ID 6">
+            </div>
+
+            <div class="fingerprint-item" onclick="switchGallery(7, this)">
+              <img src="static/GT/7.png" alt="ID 7">
+            </div>
+
+            <div class="fingerprint-item" onclick="switchGallery(8, this)">
+              <img src="static/GT/8.png" alt="ID 8">
+            </div>
+
+            <div class="fingerprint-item" onclick="switchGallery(9, this)">
+              <img src="static/GT/9.png" alt="ID 9">
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* 指纹按钮的基础样式 */
+  .fingerprint-item {
+    width: 80px;  /* 设置按钮宽度 */
+    height: 80px; /* 设置按钮高度 */
+    border-radius: 12px; /* 圆角矩形 */
+    overflow: hidden;
+    cursor: pointer;
+    border: 3px solid transparent; /* 默认透明边框，防止hover时抖动 */
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    opacity: 0.7; /* 未选中时稍微透明一点 */
+  }
+
+  .fingerprint-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 保证图片填满方框且不变形 */
+  }
+
+  /* 鼠标悬停样式 */
+  .fingerprint-item:hover {
+    transform: translateY(-3px); /* 微微上浮 */
+    opacity: 1.0;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  }
+
+  /* 选中状态 (Active) */
+  .fingerprint-item.is-active {
+    border-color: #2980b9; /* 选中时的边框颜色（蓝色） */
+    opacity: 1.0;
+    box-shadow: 0 0 0 3px rgba(41, 128, 185, 0.3); /* 外发光效果 */
+    transform: scale(1.05);
+  }
+</style>
+
+<script>
+  function switchGallery(index, element) {
+    // 1. 获取大图元素
+    var mainImage = document.getElementById('main-gallery-image');
+    
+    // 2. 简单的淡出淡入效果
+    mainImage.style.opacity = 0;
+
+    setTimeout(function() {
+      // 切换图片路径
+      mainImage.src = 'static/more-results/' + index + '.png';
+      // 恢复不透明度
+      mainImage.style.opacity = 1;
+    }, 200); // 200ms 后切换，配合CSS transition
+
+    // 3. 处理高亮状态
+    // 移除所有按钮的 .is-active 类
+    var items = document.querySelectorAll('.fingerprint-item');
+    items.forEach(function(item) {
+      item.classList.remove('is-active');
+    });
+
+    // 给当前点击的按钮添加 .is-active 类
+    element.classList.add('is-active');
+  }
+
+  // 可选：预加载所有大图，防止第一次点击时闪烁
+  window.onload = function() {
+    for (var i = 1; i <= 9; i++) {
+      var img = new Image();
+      img.src = 'static/more-results/' + i + '.png';
+    }
+  };
+</script>
+
+
+
+
+
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
