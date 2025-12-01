@@ -1,3 +1,3 @@
-# Draw-and-Understand Project Page
+# MICo-150K Project Page
 
-https://draw-and-understand.github.io/
+https://MICo-150K.github.io/
