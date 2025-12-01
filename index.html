@@ -545,7 +545,7 @@
 
 
 
-<section class="section">
+<section class="section" id="More-Results">
   <div class="container is-max-desktop">
     
     <div class="columns is-centered has-text-centered">
@@ -686,6 +686,57 @@
     }
   };
 </script>
+
+
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <h2 class="title is-3">
+          Data Analysis
+        </h2>
+      </div>
+    </div>
+
+    <div class="columns is-centered is-variable is-8">
+      
+      <div class="column is-6">
+        <div class="content">
+          <div class="has-text-centered" style="margin-bottom: 1rem;">
+            <img src="static/analysis/bar.png" 
+                 alt="Dataset Statistics" 
+                 style="width: 100%; border-radius: 5px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          </div>
+          <p class="has-text-justified" style="font-size: 0.95rem;">
+            <strong>Dataset Statistics:</strong> 
+            The statistics of the dataset’s source images and text prompts, demonstrating significantly 
+            greater diversity compared to other datasets with similar functionality.
+          </p>
+        </div>
+      </div>
+
+      <div class="column is-6">
+        <div class="content">
+          <div class="has-text-centered" style="margin-bottom: 1rem;">
+            <img src="static/analysis/pie.png" 
+                 alt="Semantic Redundancy" 
+                 style="width: 100%; border-radius: 5px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          </div>
+          <p class="has-text-justified" style="font-size: 0.95rem;">
+            <strong>Semantic Redundancy:</strong> 
+            Semantic redundancy in text prompts. We extract text embeddings using CLIP and set a 
+            cosine similarity threshold of 0.85 to identify duplicates.
+          </p>
+        </div>
+      </div>
+
+    </div>
+    </div>
+</section>
 
 
 
