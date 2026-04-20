@@ -747,6 +747,355 @@
 
 
 
+<!-- Benchmark Leaderboard -->
+<section class="section" id="leaderboard">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <h2 class="title is-3">
+          <img src="static/images/trophy.png" alt="Icon" style="height: 1.3em; vertical-align: middle; margin-right: 0.1em;">
+          Benchmark Leaderboard
+        </h2>
+        <p class="subtitle is-6 has-text-grey" style="margin-top: -8px;">
+          Click any column header to sort. Click again to toggle ascending / descending.
+        </p>
+      </div>
+    </div>
+
+    <div class="box leaderboard-box">
+      <div class="leaderboard-toolbar">
+        <div class="leaderboard-toolbar-left">
+          <span class="tag is-info is-light">Default: Overall ↓</span>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table class="table is-fullwidth is-hoverable leaderboard-table" id="leaderboard-table">
+          <colgroup>
+            <col style="width: 20%;">
+            <col style="width: 16%;">
+            <col style="width: 16%;">
+            <col style="width: 16%;">
+            <col style="width: 16%;">
+            <col style="width: 16%;">
+          </colgroup>
+          <thead>
+            <tr>
+              <th onclick="sortTable('model')" class="sortable">
+                Model <span id="sort-model" class="sort-indicator">↕</span>
+              </th>
+              <th onclick="sortTable('object')" class="sortable has-text-centered">
+                Object Centric <span id="sort-object" class="sort-indicator">↕</span>
+              </th>
+              <th onclick="sortTable('human')" class="sortable has-text-centered">
+                Human Centric <span id="sort-human" class="sort-indicator">↕</span>
+              </th>
+              <th onclick="sortTable('hoi')" class="sortable has-text-centered">
+                HOI <span id="sort-hoi" class="sort-indicator">↕</span>
+              </th>
+              <th onclick="sortTable('dere')" class="sortable has-text-centered">
+                De&amp;Re <span id="sort-dere" class="sort-indicator">↕</span>
+              </th>
+              <th onclick="sortTable('overall')" class="sortable has-text-centered">
+                Overall <span id="sort-overall" class="sort-indicator">↓</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody id="leaderboard-body">
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .leaderboard-box {
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    border: 1px solid #f0f0f0;
+    padding: 1.25rem;
+    background: linear-gradient(to bottom, #ffffff 0%, #fcfcff 100%);
+  }
+
+  .leaderboard-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .leaderboard-table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+
+  .leaderboard-table thead th {
+    background-color: #f7f9fc;
+    font-weight: 700;
+    font-size: 0.86rem;
+    border-bottom: 2px solid #eaecef;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+
+  .leaderboard-table tbody tr:hover {
+    background-color: #f9fbff !important;
+  }
+
+  .leaderboard-table td {
+    font-size: 0.80rem;
+  }
+  .leaderboard-table th {
+    padding: 0.9rem 1rem;
+  }
+
+  .leaderboard-table td.has-text-centered,
+  .leaderboard-table th.has-text-centered {
+    text-align: center;
+  }
+
+  .sortable {
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s ease;
+  }
+
+  .sortable:hover {
+    background-color: #eef3ff !important;
+  }
+
+  .sort-indicator {
+    font-size: 0.85em;
+    color: #7a7a7a;
+    margin-left: 0.25rem;
+  }
+
+  .model-name {
+    font-weight: 600;
+  }
+
+  .model-link {
+    color: inherit;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  }
+
+  .model-link:hover {
+    color: #2b6cb0;
+    text-decoration: underline;
+  }
+
+  .model-link:visited {
+    color: inherit;
+  }
+
+  .top-1 {
+    background: linear-gradient(90deg, rgba(255, 215, 0, 0.10), rgba(255,255,255,0));
+  }
+
+  .top-2 {
+    background: linear-gradient(90deg, rgba(192, 192, 192, 0.12), rgba(255,255,255,0));
+  }
+
+  .top-3 {
+    background: linear-gradient(90deg, rgba(205, 127, 50, 0.10), rgba(255,255,255,0));
+  }
+
+  @media screen and (max-width: 768px) {
+    .leaderboard-table {
+      font-size: 0.9rem;
+    }
+
+    .leaderboard-table td,
+    .leaderboard-table th {
+      padding: 0.75rem 0.6rem;
+    }
+  }
+</style>
+
+<script>
+  const leaderboardData = [
+    {
+      model: "Gemini-3.1-Flash-Image-Preview",
+      link: "https://ai.google.dev/gemini-api/docs/models/gemini-3.1-flash-image-preview",
+      object: 52.20,
+      human: 52.02,
+      hoi: 52.50,
+      dere: 50.34,
+      overall: 51.66
+    },
+    {
+      model: "GPT-Image-1.5",
+      link: "https://developers.openai.com/api/docs/models/gpt-image-1.5",
+      object: 56.66,
+      human: 46.16,
+      hoi: 52.35,
+      dere: 48.46,
+      overall: 50.60
+    },
+    {
+      model: "Qwen-Image-MICo",
+      link: "https://huggingface.co/kr-cen/Qwen-Image-MICo",
+      object: 52.38,
+      human: 21.11,
+      hoi: 34.95,
+      dere: 37.42,
+      overall: 35.86
+    },
+    {
+      model: "Bagel-MICo",
+      link: "https://huggingface.co/kr-cen/BAGEL-MICo",
+      object: 38.98,
+      human: 28.45,
+      hoi: 25.30,
+      dere: 44.51,
+      overall: 34.41
+    },
+    {
+      model: "OmniGen2-MICo",
+      link: "https://huggingface.co/kr-cen/OmniGen2-MICo",
+      object: 46.26,
+      human: 22.85,
+      hoi: 32.18,
+      dere: 36.82,
+      overall: 33.82
+    },
+    {
+      model: "OmniGen2",
+      link: "https://huggingface.co/OmniGen2/OmniGen2",
+      object: 44.24,
+      human: 21.96,
+      hoi: 27.44,
+      dere: 36.35,
+      overall: 31.42
+    },
+    {
+      model: "BLIP3o-Next-MICo",
+      link: "https://huggingface.co/kr-cen/Lumina-DiMOO-MICo",
+      object: 40.31,
+      human: 11.41,
+      hoi: 24.97,
+      dere: 26.23,
+      overall: 25.21
+    },
+    {
+      model: "Qwen-Image-Edit",
+      link: "https://huggingface.co/Qwen/Qwen-Image-Edit",
+      object: 39.42,
+      human: 17.86,
+      hoi: 19.96,
+      dere: 27.11,
+      overall: 24.94
+    },
+    {
+      model: "Lumina-Dimoo-MICo",
+      link: "https://huggingface.co/kr-cen/Lumina-DiMOO-MICo",
+      object: 38.44,
+      human: 12.14,
+      hoi: 24.66,
+      dere: 21.32,
+      overall: 23.32
+    },
+    {
+      model: "Qwen-Image-2509",
+      link: "https://huggingface.co/Qwen/Qwen-Image-Edit-2509",
+      object: 37.25,
+      human: 20.23,
+      hoi: 17.17,
+      dere: 12.62,
+      overall: 19.33
+    }
+  ];
+
+  let currentSort = {
+    key: "overall",
+    direction: "desc"
+  };
+
+  function renderLeaderboard(data) {
+    const tbody = document.getElementById("leaderboard-body");
+    tbody.innerHTML = "";
+
+    data.forEach((row, index) => {
+      let rankClass = "";
+      if (index === 0) rankClass = "top-1";
+      else if (index === 1) rankClass = "top-2";
+      else if (index === 2) rankClass = "top-3";
+
+      const tr = document.createElement("tr");
+      tr.className = rankClass;
+
+      const modelCell = row.link
+        ? `<a href="${row.link}" class="model-name model-link" target="_blank" rel="noopener noreferrer">${row.model}</a>`
+        : `<span class="model-name">${row.model}</span>`;
+
+      tr.innerHTML = `
+        <td>${modelCell}</td>
+        <td class="has-text-centered">${row.object.toFixed(2)}</td>
+        <td class="has-text-centered">${row.human.toFixed(2)}</td>
+        <td class="has-text-centered">${row.hoi.toFixed(2)}</td>
+        <td class="has-text-centered">${row.dere.toFixed(2)}</td>
+        <td class="has-text-centered"><strong>${row.overall.toFixed(2)}</strong></td>
+      `;
+
+      tbody.appendChild(tr);
+    });
+  }
+
+  function sortTable(key) {
+    if (currentSort.key === key) {
+      currentSort.direction = currentSort.direction === "asc" ? "desc" : "asc";
+    } else {
+      currentSort.key = key;
+      currentSort.direction = (key === "model") ? "asc" : "desc";
+    }
+
+    leaderboardData.sort((a, b) => {
+      let valA = a[key];
+      let valB = b[key];
+
+      if (key === "model") {
+        return currentSort.direction === "asc"
+          ? valA.localeCompare(valB)
+          : valB.localeCompare(valA);
+      } else {
+        return currentSort.direction === "asc"
+          ? valA - valB
+          : valB - valA;
+      }
+    });
+
+    updateSortIndicators();
+    renderLeaderboard(leaderboardData);
+  }
+
+  function updateSortIndicators() {
+    const keys = ["model", "object", "human", "hoi", "dere", "overall"];
+    keys.forEach((key) => {
+      const el = document.getElementById(`sort-${key}`);
+      if (!el) return;
+      el.textContent = "↕";
+    });
+
+    const active = document.getElementById(`sort-${currentSort.key}`);
+    if (active) {
+      active.textContent = currentSort.direction === "asc" ? "↑" : "↓";
+    }
+  }
+
+  leaderboardData.sort((a, b) => b.overall - a.overall);
+  updateSortIndicators();
+  renderLeaderboard(leaderboardData);
+</script>
+
 
 
 <section class="section" id="BibTeX">
